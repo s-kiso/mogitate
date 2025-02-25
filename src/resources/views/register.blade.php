@@ -48,9 +48,9 @@
                 <span class="form__label--item">商品画像</span>
                 <span class="form__label--required">必須</span>
             </div>
-            <!-- <div class="form__input--text">
+            <div class="form__input--text">
                 <img src="{{ asset('storage/') }}" alt="">
-            </div> -->
+            </div>
             <div class="form__input--image">
                 <input type="file" name="image" accept="image/jpeg, image/png" value="">
             </div>
@@ -69,8 +69,8 @@
                 <span class="form__label--multiple">複数選択可</span>
             </div>
             <div class="form__input--radio">
-                @foreach($seasons as $season)
-                <input type="checkbox" name="seasons[]" value="{{ $season->id }}" {{ old("season") == $season->id ? "checked" :"" }}><label>{{ $season->name }}</label>
+                @foreach($seasons as $key => $season)
+                <input type="checkbox" name="seasons[{{$key}}]" value="{{ $season->id }}" @if(old("seasons.$key")=== strval($season->id)) checked @endif><label>{{ $season->name }}</label>
                 @endforeach
             </div>
             <div class="form__error">

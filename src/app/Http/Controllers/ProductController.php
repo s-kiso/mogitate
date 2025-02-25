@@ -34,24 +34,40 @@ class ProductController extends Controller
         }
 
         $items = $query->paginate(6)->withQueryString();
-        $product_name = "\"".$product_name."\""."の";
+        // $product_name = "\"".$product_name."\""."の";
         return view('products', compact('items', 'product_name', 'sort__type'));
     }
 
-    public function ascending()
+    public function descending(Request $request)
     {
+        $request->flash();
+        $product_name = $request->input("search_data");
         $query = Product::query();
-        $items = $query->orderBy('price')->paginate(6);
-        $sort__type = "低い順に表示";
-        return view('products', compact('items', 'sort__type'));
+        $query->where('name', 'LIKE', "%$product_name%");
+        $items = $query->orderByDesc('price')->paginate(6)->withQueryString();
+        $sort__type = "高い順に表示";
+        return view('products', compact('items', 'sort__type', 'product_name'));
     }
 
-    public function descending()
+    public function ascending(Request $request)
     {
+        $request->flash();
+        $product_name = $request->input("search_data");
         $query = Product::query();
-        $items = $query->orderByDesc('price')->paginate(6);
-        $sort__type = "高い順に表示";
-        return view('products', compact('items', 'sort__type'));
+        $query->where('name', 'LIKE', "%$product_name%");
+        $items = $query->orderBy('price')->paginate(6)->withQueryString();
+        $sort__type = "低い順に表示";
+        return view('products', compact('items', 'sort__type', 'product_name'));
+    }
+
+    public function reset(Request $request)
+    {
+        $request->flash();
+        $product_name = $request->input("search_data");
+        $query = Product::query();
+        $query->where('name', 'LIKE', "%$product_name%");
+        $items = $query->paginate(6)->withQueryString();
+        return view('products', compact('items','product_name'));
     }
 
     public function register()
@@ -99,10 +115,6 @@ class ProductController extends Controller
 
         $item = Product::find($request->input('id'));
 
-        // データがなかった場合の処理
-        // if ($item -> empty()){
-        //     return redirect('/products');
-        // }
         $item->update($product_contents);
         $item->seasons()->sync($season);
 
@@ -118,4 +130,6 @@ class ProductController extends Controller
         return redirect('/products');
     }
 
+
 }
+

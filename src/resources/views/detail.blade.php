@@ -65,10 +65,13 @@
                     <div class="form__input--checkbox">
                         @foreach($season_list as $season => $name)
                         <label>
-                            <input type="checkbox" name="seasons[]" value="{{ $season }}" {{ $item->seasons->contains($season) ? 'checked' : '' }}> {{ $name }}
+                            <input type="checkbox" name="seasons[{{$season}}]" value="{{ $season }}"  @if(old("seasons.$season")===strval($season)) checked @elseif($item->seasons->contains($season)) checked @endif> {{ $name }}
                         </label>
                         @endforeach
                     </div>
+
+
+
                     <div class="form__error">
                         @error('seasons')
                         {{ $message }}
