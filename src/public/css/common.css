@@ -1,0 +1,38 @@
+.noto-sans-jp {
+    font-family: "Noto Sans JP", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.inter {
+    font-family: "Inter", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    font-family: "Noto Sans JP", serif;
+}
+
+.header {
+    background-color: #FFFFFF;
+    border-bottom: 1px #F4F4F4;
+}
+
+.header__inner {
+    padding: 10px 20px;
+}
+
+.header__logo {
+    color: #F5C800;
+    font-size: 30px;
+    font-weight: 500;
+    text-decoration: none;
+    font-style: italic;
+}
+
+main {
+    background-color: #F8F8F8;
+}
